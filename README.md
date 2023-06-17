@@ -8,5 +8,5 @@ This app was made with:
 - Blazor WebAssembly App
 
 Required packages in Visual Studio (Blazor_WebAssembly_Login_1.Client):
-- Blazor.SessionStorage 7.0.3
+- Blazored.SessionStorage 2.3.0
 - Microsoft.AspNetCore.Components.Authorization 7.0.7
