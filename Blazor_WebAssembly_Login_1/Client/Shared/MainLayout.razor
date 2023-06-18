@@ -1,5 +1,10 @@
 ﻿@inherits LayoutComponentBase
 
+@using Blazor_WebAssembly_Login_1.Client.Extensions
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider authenticationProvider
+@inject NavigationManager navManager
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -8,6 +13,7 @@
     <main>
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a @onclick="SignOut" href="javascript:void(0)">Sign out</a>
         </div>
 
         <article class="content px-4">
@@ -15,3 +21,19 @@
         </article>
     </main>
 </div>
+
+@code{
+
+        // Sign out Method
+        private async Task SignOut()
+        {
+            // Use the service of the custom authentication
+            var authenticationExt = (AuthenticationExtension)authenticationProvider;
+
+            // Update status
+            await authenticationExt.UpdateAuthenticationStatus(null);
+
+            // Redirect
+            navManager.NavigateTo("/", true);
+        }
+}
