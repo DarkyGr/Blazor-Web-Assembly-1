@@ -2,6 +2,9 @@
 @using Blazor_WebAssembly_Login_1.Shared
 @inject HttpClient Http
 
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize(Roles = "Admin")]
+
 <PageTitle>Weather forecast</PageTitle>
 
 <h1>Weather forecast</h1>
