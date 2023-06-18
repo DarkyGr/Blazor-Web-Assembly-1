@@ -17,7 +17,7 @@ namespace Blazor_WebAssembly_Login_1.Client.Extensions
             _sessionStorageService = sessionStorageService;
         }
 
-        // Update the authentication status and set the information of the user
+        // Update the authentication status and save the information of the user
         public async Task UpdateAuthenticationStatus(SessionDTO? sessionUser)
         {
             ClaimsPrincipal claimsPrincipal;
@@ -48,9 +48,26 @@ namespace Blazor_WebAssembly_Login_1.Client.Extensions
 
 
         // Get the information of the user who is authenticated
-        public override Task<AuthenticationState> GetAuthenticationStateAsync()
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            throw new NotImplementedException();
+            // Get the session user
+            var sessionUser = await _sessionStorageService.GetStorage<SessionDTO>("sessionUser");
+
+            // Check if is null
+            if (sessionUser == null)
+            {
+                return await Task.FromResult(new AuthenticationState(_withoutInformation));
+            }
+
+            // If not
+            var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, sessionUser.Name),
+                    new Claim(ClaimTypes.Email, sessionUser.Email),
+                    new Claim(ClaimTypes.Role, sessionUser.Rol)
+                }, "JwtAuth"));
+
+            return await Task.FromResult(new AuthenticationState(claimsPrincipal));
         }
     }
 }
