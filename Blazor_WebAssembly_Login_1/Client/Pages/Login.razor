@@ -37,7 +37,8 @@
 @code {
     private LoginDTO login = new LoginDTO();
 
-    private async Task SingIn()
+    // Sing in Method
+    private async Task SignIn()
     {
         // Consume our controller API in server
         var loginResponse = await httpClient.PostAsJsonAsync<LoginDTO>("/api/User/Login", login);
