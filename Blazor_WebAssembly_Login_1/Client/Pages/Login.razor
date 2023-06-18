@@ -1,4 +1,12 @@
 ﻿@page "/"
+@layout LoginLayout
+
+@inject HttpClient httpClient
+@using Blazor_WebAssembly_Login_1.Client.Extensions
+@using Blazor_WebAssembly_Login_1.Shared
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider authenticationProvider
+@inject NavigationManager navManager
 
 <h3>Login</h3>
 
